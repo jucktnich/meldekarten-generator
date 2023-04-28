@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+
+<head>
+    <title>Meldekarten-Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Erstelle, speichere und bearbeite Meldekarten für Einsätze.">
+    <meta name="keywords"
+        content="meldekarte, registration card, drk, icrc, ikrk, red cross, rotes kreuz, einsatzkräfte, kab">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="header" class="not-printable">
+        <h1>Meldekarten-Generator</h1>
+        <p>Erstelle, speichere und bearbeite Meldekarten für Einsätze</p>
+        <div class="button-set" id="header-buttons">
+            <button onclick="document.getElementById('import-overlay').style.display = 'inline'">Daten
+                hochladen</button>
+            <button onclick="doExportString()">Daten herunterladen</button>
+            <button onclick="document.getElementById('delete-all-overlay').style.display = 'inline'">Alle Daten
+                löschen</button>
+        </div>
+    </div>
+    <div id="entry-list"></div>
+    <br>
+    <!--Overlays-->
+    <div class="overlay" id="import-overlay" class="not-printable">
+        <div class="content">
+            <div class="multi-element-string">
+                <span style="white-space: nowrap;">Öffne eine</span>
+                <label style="font-size: 0.75em; color: grey;" for="file-upload" class="file-upload">Datei</label>
+                <input style="display: none;" id="file-upload" type="file" />
+                oder
+                <textarea id="string-input" placeholder="füge hier die Zeichenkette ein."></textarea>
+            </div>
+            <div style="margin-top: 10px; display: flex; justify-content: space-around;">
+                <button onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Abbrechen</button>
+                <button class="primary-button" id="add-string">Hinzufügen</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="export-overlay" class="not-printable">
+        <div class="content">
+            <div class="multi-element-string">
+                <span style="white-space: nowrap;">Lade die</span>
+                <button onclick="download()" class="input-style">Datei</button>
+                <span style="white-space: nowrap;">herunter oder</span>
+                <button onclick="copy()" class="input-style">kopiere</button>
+                <span style="white-space: nowrap;">die Zeichenkette.</span>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" class="not-printable" id="delete-all-overlay">
+        <div class="content">
+            <h3 style="margin-top: 5px; margin-bottom:5px;">Alle Daten löschen?</h3>
+            Möchtest du wirklich alle Einträge unwiderruflich löschen?
+            <div style="margin-top: 10px; display: flex; justify-content: space-around;">
+                <button onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Abbrechen</button>
+                <button onclick="deleteAllData()" class="warning-button">Löschen</button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" class="not-printable" id="delete-entry-overlay">
+        <div class="content">
+            <h3 style="margin-top: 5px; margin-bottom:5px;">Eintrag löschen?</h3>
+            Möchtest du wirklich diesen Eintrag unwiderruflich löschen?
+            <div style="margin-top: 10px; display: flex; justify-content: space-around;">
+                <button onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Abbrechen</button>
+                <button onclick="" id="delete-entry-button" class="warning-button">Löschen</button>
+            </div>
+        </div>
+    </div>
+    <noscript>
+        <div style="display: inline;" class="overlay" class="not-printable" id="delete-entry-overlay">
+            <div class="content">
+                <h3 style="margin-top: 5px; margin-bottom:5px;">JavaScript wird benötigt</h3>
+                JavaScript wird leider benötigt, um diese Website zu nutzen. Aktiviere JavaScript in den Einstellungen,
+                update den Browser und nutze am besten den Firefox-Browser.
+            </div>
+        </div>
+    </noscript>
+    <div id="footer" class="button-set not-printable">
+        <button onclick="addEntry()">Neue Person hinzufügen</button>
+        <button onclick="printCard()">Drucken</button>
+    </div>
+    <div id="print-area"></div>
+    <script src="./app.js"></script>
+</body>
+
+</html>
