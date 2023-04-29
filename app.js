@@ -12,6 +12,24 @@ function isEmpty(obj) {
     return true
 }
 
+function dateToStandard(date, includeTime = false) {
+    const jsDate = new Date(date);
+    if (jsDate == "Invalid Date") return ""
+    const yyyy = jsDate.getFullYear();
+    let mm = jsDate.getMonth() + 1;
+    let dd = jsDate.getDate();
+    let hh = jsDate.getHours();
+    let minmin = jsDate.getMinutes();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    if (hh < 10) hh = '0' + hh;
+    if (minmin < 10) minmin = '0' + minmin;
+
+    if(includeTime) return dd + '.' + mm + '.' + yyyy + ', ' + hh + ':' + minmin;
+    return dd + '.' + mm + '.' + yyyy;
+}
+
 function importString(input) {
     getData()
     input = input.replace(/\n/g, ";");
@@ -58,7 +76,7 @@ function doExportString() {
         let arrayForEntry = [];
         arrayForEntry[0] = entry.name;
         arrayForEntry[1] = entry.firstName;
-        arrayForEntry[2] = entry.birthdate;
+        arrayForEntry[2] = dateToStandard(entry.birthdate);
         arrayForEntry[3] = entry.sex;
         arrayForEntry[4] = entry.zip;
         arrayForEntry[5] = entry.residency;
@@ -69,7 +87,7 @@ function doExportString() {
         arrayForEntry[10] = entry.rcUnit;
         arrayForEntry[11] = entry.place;
         arrayForEntry[12] = entry.unit;
-        arrayForEntry[13] = entry.start;
+        arrayForEntry[13] = dateToStandard(entry.start, true);
         let entryString = "";
         for (let j = 0; j < entryLength - 1; j++) {
             if (arrayForEntry[j] != undefined) entryString += arrayForEntry[j] + ";";
@@ -218,20 +236,16 @@ function printCard() {
     let html = ""
     for (let i = 0; i < entries.length; i++) {
         let entry = entries[i]
-        entry.birthdate = new Date(entry.birthdate).toLocaleDateString("de-DE", { year: "numeric", month: "numeric", day: "numeric" })
-        if (entry.birthdate == "Invalid Date") entry.birthdate = ""
         entry.residency = entry.zip + " " + entry.residency
-        entry.start = new Date(entry.start).toLocaleString("de-DE", { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" })
-        if (entry.start == "Invalid Date") entry.start = ""
         if (!entry.sex) entry.sex = "uk"
         html += `<div>
             <p class="name">${entry.name}</p>
-            <p class="birthdate">${entry.birthdate}</p>
+            <p class="birthdate">${dateToStandard(entry.birthdate)}</p>
             <p class="residency">${entry.residency}</p>
             <p class="street">${entry.street}</p>
             <p class="district">${entry.district}</p>
             <p class="place">${entry.place}</p>
-            <p class="start">${entry.start}</p>
+            <p class="start">${dateToStandard(entry.start, true)}</p>
             <p class="first-name">${entry.firstName}</p>
             <p class="${entry.sex}">&times;</p>
             <p class="nationality">${entry.nationality}</p>
