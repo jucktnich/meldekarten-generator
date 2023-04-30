@@ -26,7 +26,7 @@ function dateToStandard(date, includeTime = false) {
     if (hh < 10) hh = '0' + hh;
     if (minmin < 10) minmin = '0' + minmin;
 
-    if(includeTime) return dd + '.' + mm + '.' + yyyy + ', ' + hh + ':' + minmin;
+    if (includeTime) return dd + '.' + mm + '.' + yyyy + ', ' + hh + ':' + minmin;
     return dd + '.' + mm + '.' + yyyy;
 }
 
@@ -285,3 +285,25 @@ if (lsItem !== null && lsItem instanceof Array) {
 }
 render()
 setInterval(getData, 1000)
+
+async function registerServiceWorker () {
+    if ("serviceWorker" in navigator) {
+        try {
+            const registration = await navigator.serviceWorker.register("/sw.js", {
+                scope: "/",
+            });
+            if (registration.installing) {
+                console.log("Service worker installing");
+            } else if (registration.waiting) {
+                console.log("Service worker installed");
+            } else if (registration.active) {
+                console.log("Service worker active");
+            }
+        } catch (error) {
+            console.error(`Registration failed with ${error}`);
+        }
+    }
+};
+
+
+registerServiceWorker();

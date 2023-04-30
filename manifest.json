@@ -1,0 +1,18 @@
+{
+    "name": "Meldekarten-Generator",
+    "start_url": ".",
+    "lang": "de",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "dir": "ltr",
+    "description": "Erstelle, speichere und bearbeite Meldekarten für Einsätze.",
+    "icons": [
+        {
+            "src": "red-cross.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable monochrome"
+        }
+    ]
+}
