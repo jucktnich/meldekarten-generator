@@ -1,16 +1,16 @@
 async function addResourcesToCache (resources) {
-    const cache = await caches.open("v1.0.0b1.0.2");
+    const cache = await caches.open("v1.0.0b1.1.1");
     await cache.addAll(resources);
 };
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
         addResourcesToCache([
-            "/",
-            "/index.html",
-            "/style.css",
-            "/app.js",
-            "/red-cross.svg"
+            "./",
+            "./index.html",
+            "./style.css",
+            "./app.js",
+            "./red-cross.svg"
         ])
     );
 });

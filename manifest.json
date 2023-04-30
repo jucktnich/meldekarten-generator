@@ -9,7 +9,7 @@
     "description": "Erstelle, speichere und bearbeite Meldekarten für Einsätze.",
     "icons": [
         {
-            "src": "red-cross.svg",
+            "src": "./red-cross.svg",
             "sizes": "any",
             "type": "image/svg+xml",
             "purpose": "any maskable monochrome"
